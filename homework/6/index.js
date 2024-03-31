@@ -31,6 +31,12 @@ class Link {
         this.next = null;
         this.prev = null;
     }
+    setNext(link) {
+        this.next = link;
+    }
+    setPrev(link) {
+        this.prev = link;
+    }
 }
 class LinkedList {
     constructor() {
@@ -45,14 +51,11 @@ class LinkedList {
         if (!this.first) {
             this.first = newLink;
             this.last = newLink;
-            return newLink.value;
         }
-        for (const value of this.values) {
-            if (!value.next) {
-                value.next = newLink;
-                this.last = newLink;
-                newLink.prev = value;
-            }
+        if (this.last) {
+            this.last.setNext(newLink);
+            newLink.setPrev(this.last);
+            this.last = newLink;
         }
         return newLink.value;
     }

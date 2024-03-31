@@ -10,6 +10,14 @@ class Link<T> {
     this.next = null;
     this.prev = null;
   }
+
+  setNext(link: Link<T>) {
+    this.next = link;
+  }
+
+  setPrev(link: Link<T>) {
+    this.prev = link;
+  }
 }
 
 class LinkedList<T> {
@@ -26,15 +34,12 @@ class LinkedList<T> {
     if (!this.first) {
       this.first = newLink;
       this.last = newLink;
-      return newLink.value;
     }
 
-    for (const value of this.values) {
-      if (!value.next) {
-        value.next = newLink;
-        this.last = newLink;
-        newLink.prev = value;
-      }
+    if (this.last) {
+      this.last.setNext(newLink);
+      newLink.setPrev(this.last);
+      this.last = newLink;
     }
 
     return newLink.value;
