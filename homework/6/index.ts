@@ -1,3 +1,5 @@
+import * as assert from "node:assert";
+
 class Link<T> {
   value: T;
   next: Link<T> | null;
@@ -67,10 +69,39 @@ class LinkedList<T> {
 
 const list = new LinkedList();
 
-list.add(1);
-list.add(2);
-list.add(3);
+list.add(655);
+assert.equal(list.first?.value, 655);
+assert.equal(list.last?.value, 655);
 
-for (const { value } of list) {
-  console.log(value);
-}
+list.add(797);
+assert.equal(list.first?.value, 655);
+assert.equal(list.last?.value, 797);
+assert.equal(list.first?.next?.value, 797);
+assert.equal(list.last?.prev?.value, 655);
+
+list.add(64);
+assert.equal(list.first?.value, 655);
+assert.equal(list.last?.value, 64);
+assert.equal(list.first?.next?.value, 797);
+assert.equal(list.last?.prev?.value, 797);
+
+list.add(77);
+assert.equal(list.first?.value, 655);
+assert.equal(list.last?.value, 77);
+assert.equal(list.first?.next?.value, 797);
+assert.equal(list.last?.prev?.value, 64);
+
+list.add(1);
+assert.equal(list.first?.value, 655);
+assert.equal(list.last?.value, 1);
+assert.equal(list.first?.next?.value, 797);
+assert.equal(list.last?.prev?.value, 77);
+
+list.add(8990);
+assert.equal(list.first?.value, 655);
+assert.equal(list.last?.value, 8990);
+assert.equal(list.first?.next?.value, 797);
+assert.equal(list.last?.prev?.value, 1);
+
+const values = [...list].map((link) => link.value);
+assert.deepEqual(values, [655, 797, 64, 77, 1, 8990]);
