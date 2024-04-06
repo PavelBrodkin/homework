@@ -108,5 +108,5 @@ assert.equal(list.last?.value, 8990);
 assert.equal(list.first?.next?.value, 797);
 assert.equal(list.last?.prev?.value, 1);
 
-const values = [...list].map((link) => link.value);
+const values = [...list].map((link) => link?.value);
 assert.deepEqual(values, [655, 797, 64, 77, 1, 8990]);
